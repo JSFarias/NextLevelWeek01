@@ -1,0 +1,1 @@
+{"ast":null,"code":"export * from 'expo-splash-screen';","map":{"version":3,"sources":["../../src/launch/SplashScreen.ts"],"names":[],"mappings":"AAAA,cAAc,oBAAd","sourcesContent":["export * from 'expo-splash-screen';\n"],"sourceRoot":""},"metadata":{},"sourceType":"module"}
