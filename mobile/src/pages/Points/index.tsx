@@ -3,6 +3,7 @@ import {Feather as Icon} from '@expo/vector-icons'
 import {useNavigation, NavigationContainer} from '@react-navigation/native'
 import Constants from 'expo-constants'
 import {View, Text, StyleSheet, TouchableOpacity} from 'react-native'
+import MapView from 'react-native-maps'
 
 const Points = ()=>{
 
@@ -13,19 +14,26 @@ const Points = ()=>{
   }
 
   return (
-    <View style={styles.container}>
-      <TouchableOpacity onPress={handleNavigateBack}>
-        <Icon name={'arrow-left'} size={20} color='#34cb79'/>
-      </TouchableOpacity>
+    <>
+      <View style={styles.container}>
+        <TouchableOpacity onPress={handleNavigateBack}>
+          <Icon name={'arrow-left'} size={20} color='#34cb79'/>
+        </TouchableOpacity>
 
-       <Text style={styles.title}>Bem vindo.</Text>
-       <Text style={styles.description}>Encontre no mapa um ponto de coleta.</Text>
+        <Text style={styles.title}>Bem vindo.</Text>
+        <Text style={styles.description}>Encontre no mapa um ponto de coleta.</Text>
 
-       <View style={styles.mapContainer}>
-         
-       </View>
+        <View style={styles.mapContainer}>
+          <MapView style={styles.map}/>
+        </View>
 
-    </View>
+      </View>      
+      <View style={styles.itemsContainer}>
+        <TouchableOpacity style={styles.item} onPress={()=>{}}>
+
+        </TouchableOpacity>
+      </View>
+    </>
   )
 }
 
