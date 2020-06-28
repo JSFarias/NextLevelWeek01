@@ -14,7 +14,7 @@ Platform:
   win32 x64
 
 Trace: 
-  Error: EPERM: operation not permitted, unlink 'C:\Users\jhona\Documents\_ESTUDOS\RocketSeat\NextLevelWeek 1\mobile\node_modules\@babel\compat-data\node_modules\.bin'
+  Error: ENOENT: no such file or directory, lstat 'C:\Users\jhona\Documents\_ESTUDOS\RocketSeat\NextLevelWeek 1\mobile\node_modules\metro\node_modules\.bin'
 
 npm manifest: 
   {
@@ -32,6 +32,7 @@ npm manifest:
       "@react-native-community/masked-view": "0.1.10",
       "@react-navigation/native": "^5.6.1",
       "@react-navigation/stack": "^5.6.2",
+      "axios": "^0.19.2",
       "expo": "~38.0.1",
       "expo-constants": "~9.1.1",
       "expo-font": "~8.2.1",
