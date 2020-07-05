@@ -7,7 +7,6 @@ import {RectButton} from 'react-native-gesture-handler'
 
 const Detail = ()=>{
  
-  //1:24:18
 
   const navigation = useNavigation()
 
