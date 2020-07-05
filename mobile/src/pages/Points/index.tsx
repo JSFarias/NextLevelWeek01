@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import {Feather as Icon} from '@expo/vector-icons'
-import {useNavigation, NavigationContainer} from '@react-navigation/native'
+import {useNavigation, useRoute} from '@react-navigation/native'
 import Constants from 'expo-constants'
 import {View, Text, Image, StyleSheet, TouchableOpacity, ScrollView, Alert} from 'react-native'
 import MapView, {Marker} from 'react-native-maps'
@@ -23,6 +23,11 @@ interface Point{
   longitude: number,
 }
 
+interface Params{
+  uf: string,
+  city: string,
+}
+
 const Points = ()=>{
 
   const [items, setItems] = useState<Item[]>([])
@@ -30,6 +35,8 @@ const Points = ()=>{
   const navigation = useNavigation()    
   const [selectedItems, setSelectedItems] = useState<number[]>([])
   const [initialPosition, setInitialPosition] = useState<[number, number]>([0,0])
+  const route = useRoute()
+  const routeParams = route.params as Params
 
   useEffect(()=>{
     async function loadPosition(){
@@ -58,14 +65,14 @@ const Points = ()=>{
   useEffect(()=>{
     api.get('/points', {
       params:{
-        city: 'São Paulo',
-        uf: 'SP',
-        items:[1, 2],
+        city: routeParams.city,
+        uf: routeParams.uf,
+        items:selectedItems,
       }
     }).then(response =>{
       setPoints(response.data)
     })
-  },[])
+  },[selectedItems])
 
 
   function handleNavigateBack() {
