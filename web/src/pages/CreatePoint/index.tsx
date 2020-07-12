@@ -11,6 +11,8 @@ import './style.css'
 
 import logo from '../../assets/logo.svg'
 
+import Dropzone from '../../components/Dropzone'
+
 
 interface Item {
   id: number
@@ -25,6 +27,7 @@ interface IBGEUFResponse{
 interface IBGECityResponse{
   nome: string
 }
+
 
 const CreatePoint = () =>{
 
@@ -91,6 +94,20 @@ const CreatePoint = () =>{
     email: '',
     whatsapp:'',
   })
+
+  const [selectedItems, setSelectedItems] = useState<number[]>([])
+  function handleItemClick(id: number){
+
+    const items = selectedItems.includes(id)? 
+      selectedItems.filter(item => item !== id) : 
+      [...selectedItems ,id]
+
+    setSelectedItems(items)
+  }
+
+  const [selectedFile, setSelectedFile] = useState<File>()
+
+
   function handleinputChange(e: ChangeEvent<HTMLInputElement>){
     const {name, value} = e.target
     setFormData({...formData, [name]: value})
@@ -107,17 +124,6 @@ const CreatePoint = () =>{
     })
   },[]) 
 
-
-  const [selectedItems, setSelectedItems] = useState<number[]>([])
-  function handleItemClick(id: number){
-
-    const items = selectedItems.includes(id)? 
-      selectedItems.filter(item => item !== id) : 
-      [...selectedItems ,id]
-
-    setSelectedItems(items)
-  }
-
   async function handleSubmit (e: FormEvent){
     e.preventDefault()
 
@@ -127,15 +133,19 @@ const CreatePoint = () =>{
     const [latitude, longitude] = selectedPos
     const items = selectedItems
 
-    const data = {
-      name, 
-      email, 
-      whatsapp,
-      uf,
-      city,
-      latitude, 
-      longitude,
-      items
+    const data = new FormData()
+    
+    data.append('name', name);
+    data.append('email', email);
+    data.append('whatsapp', whatsapp);
+    data.append('uf', uf);
+    data.append('city', city);
+    data.append('latitude', String(latitude));
+    data.append('longitude', String(longitude));
+    data.append('items', items.join(','));
+    
+    if(selectedFile){
+      data.append('image', selectedFile);
     }
 
     await api.post('points', data)
@@ -160,6 +170,8 @@ const CreatePoint = () =>{
       <form onSubmit={handleSubmit} action='/create-point'>
         <h1>Cadastro do <br/> ponto de coleta</h1>
         
+        <Dropzone onFileUploaded={setSelectedFile}/>
+
         <fieldset>
           <legend>
             <h2>Dados</h2>
@@ -271,3 +283,4 @@ const CreatePoint = () =>{
 }
 
 export default CreatePoint
+
